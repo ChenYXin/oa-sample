@@ -11,7 +11,7 @@ public class UserServiceTest {
 
     @Test
     public void checkLogin1() {
-        User user = userService.checkLogin("test", "test");
+        User user = userService.checkLogin("m8", "test");
         System.out.println(user);
     }
 
