@@ -1,6 +1,5 @@
 package com.imooc.oa.entity;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 
 public class LeaveForm {

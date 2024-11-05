@@ -3,6 +3,9 @@ package com.imooc.oa.mapper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import com.imooc.oa.entity.LeaveForm;
 import com.imooc.oa.utils.MyBatisUtils;
 import org.junit.Test;
@@ -32,6 +35,16 @@ public class LeaveFormMapperTest {
             form.setState("processing");//当前状态
             mapper.insert(form);
             return null;
+        });
+    }
+
+    @Test
+    public void selectByParams() {
+        MyBatisUtils.executeQuery(sqlSession -> {
+            LeaveFormMapper mapper = sqlSession.getMapper(LeaveFormMapper.class);
+            List<Map> list = mapper.selectByParams("process", 2l);
+            System.out.println(list);
+            return list;
         });
     }
 }
