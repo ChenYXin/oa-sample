@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet("/api/leave/*")
 public class LeaveFormServlet extends HttpServlet {
@@ -31,6 +33,7 @@ public class LeaveFormServlet extends HttpServlet {
         if (methodName.equals("create")) {
             this.create(request, response);
         } else if (methodName.equals("list")) {
+            this.list(request, response);
         } else if (methodName.equals("audit")) {
         }
     }
@@ -58,6 +61,20 @@ public class LeaveFormServlet extends HttpServlet {
             resp = new ResponseUtils(e.getClass().getSimpleName(), e.getMessage());
         }
 
+        response.getWriter().println(resp.toJsonString());
+    }
+
+    private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String employeeId = request.getParameter("eid");
+
+        ResponseUtils resp = null;
+        try {
+            List<Map> formList = leaveFormService.getLeaveFormList("process", Long.parseLong(employeeId));
+            resp = new ResponseUtils().put("list", formList);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            resp = new ResponseUtils(e.getClass().getSimpleName(), e.getMessage());
+        }
         response.getWriter().println(resp.toJsonString());
     }
 }
