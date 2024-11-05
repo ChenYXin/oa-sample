@@ -33,11 +33,11 @@
                 <el-col :span="12" style="text-align: right">
                     <el-dropdown>
                         <i class="el-icon-s-check" style="font-size: 18px;margin-right: 15px">
-                            <span style="margin-right: 15px">张三【研发工程师】</span>
+                            <span style="margin-right: 15px">{{employee.name}}[{{employee.title}}]</span>
                         </i>
                         <template #dropdown>
                             <el-dropdown-menu>
-                                <el-dropdown-item>注销</el-dropdown-item>
+                                <el-dropdown-item v-on:click="logout">注销</el-dropdown-item>
                             </el-dropdown-menu>
                         </template>
                     </el-dropdown>
@@ -71,17 +71,23 @@
         data() {
             return {
                 nodeList: []
+                , employee: {}
             }
         }
         , methods: {
             showPage(url) {
                 document.getElementById("main").src = url;
             }
+            , logout() {
+                sessionStorage.clear();
+                window.location.href = "/login.html";
+            }
         }
         , mounted() {
             const objApp = this;
-
-            axios.get("/api/user_info?uid=" + sessionStorage.uid)
+            const uid = sessionStorage.uid;
+            const eid = sessionStorage.eid;
+            axios.get("/api/user_info?uid=" + uid + "&eid=" + eid)
                 .then(function (response) {
                     const json = response.data;
                     console.info(json);
@@ -89,6 +95,7 @@
                         objApp.nodeList.push(item);
                     })
                     console.info(objApp.nodeList);
+                    objApp.employee = json.data.employee;
                 })
         }
     };
