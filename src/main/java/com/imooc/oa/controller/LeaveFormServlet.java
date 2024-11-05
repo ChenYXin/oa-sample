@@ -35,6 +35,7 @@ public class LeaveFormServlet extends HttpServlet {
         } else if (methodName.equals("list")) {
             this.list(request, response);
         } else if (methodName.equals("audit")) {
+            this.audit(request, response);
         }
     }
 
@@ -71,6 +72,22 @@ public class LeaveFormServlet extends HttpServlet {
         try {
             List<Map> formList = leaveFormService.getLeaveFormList("process", Long.parseLong(employeeId));
             resp = new ResponseUtils().put("list", formList);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            resp = new ResponseUtils(e.getClass().getSimpleName(), e.getMessage());
+        }
+        response.getWriter().println(resp.toJsonString());
+    }
+
+    private void audit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String formId = request.getParameter("formId");
+        String result = request.getParameter("result");
+        String reason = request.getParameter("reason");
+        String eid = request.getParameter("eid");
+        ResponseUtils resp = null;
+        try {
+            leaveFormService.audit(Long.parseLong(formId), Long.parseLong(eid), result, reason);
+            resp = new ResponseUtils();
         } catch (NumberFormatException e) {
             e.printStackTrace();
             resp = new ResponseUtils(e.getClass().getSimpleName(), e.getMessage());
