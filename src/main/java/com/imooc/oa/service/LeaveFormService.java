@@ -190,13 +190,13 @@ public class LeaveFormService {
                 String notice1 = String.format("您的请假申请[%s-%s]%s%s已%s,审批意见：%s,审批流程已结束.",
                         sdf.format(form.getStartTime()), sdf.format(form.getEndTime()),
                         operator.getTitle(), operator.getName(), strResult,reason);
-                noticeMapper.insert(new Notice(employee.getEmployeeId(), notice1));
+                noticeMapper.insert(new Notice(form.getEmployeeId(), notice1));
 
                 String notice2 = String.format("%s-%s提起请假申请[%s-%s]您已%s,审批意见：%s,审批流程已结束.",
                         employee.getTitle(), employee.getName(),
                         sdf.format(form.getStartTime()), sdf.format(form.getEndTime()),
                         strResult,reason);//发给审批人的通知
-                noticeMapper.insert(new Notice(employee.getEmployeeId(), notice2));
+                noticeMapper.insert(new Notice(operator.getEmployeeId(), notice2));
             } else {
                 //readyList 包含所有后续节点
                 List<ProcessFlow> readyList = flowList.stream().filter(p -> p.getState().equals("ready")).collect(Collectors.toList());
