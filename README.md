@@ -12,3 +12,10 @@
 - Servlet 6.1.0
 - Vue 3.x
 - Element Plus
+
+## 截图
+<div align=center><img width="400" src="https://raw.githubusercontent.com/ChenYXin/oa-sample/refs/heads/main/screenshot/1.png"/></div>
+<div align=center><img width="400" src="https://raw.githubusercontent.com/ChenYXin/oa-sample/refs/heads/main/screenshot/2.png"/></div>
+<div align=center><img width="400" src="https://raw.githubusercontent.com/ChenYXin/oa-sample/refs/heads/main/screenshot/3.png"/></div>
+<div align=center><img width="400" src="https://raw.githubusercontent.com/ChenYXin/oa-sample/refs/heads/main/screenshot/4.png"/></div>
+<div align=center><img width="400" src="https://raw.githubusercontent.com/ChenYXin/oa-sample/refs/heads/main/screenshot/5.png"/></div>
